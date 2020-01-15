@@ -1,0 +1,22 @@
+stats<-read.csv("C:/workshopDS/datasets/lebron.csv", header = TRUE, colClasses=c("character","numeric"), sep = ",")
+colnames(stats) <- c("ds", "y")
+head(stats)
+stats$y <-as.numeric(stats$y)
+stats$ds <-as.Date(stats$ds)
+summary(stats)
+plot(y ~ ds, stats, type = "l")
+
+library("prophet")
+
+m <- prophet(stats)
+future <- make_future_dataframe(m, periods = 365)
+forecast <- predict(m, future)
+
+head(forecast)
+plot(m, forecast)
+
+tail(forecast[c("ds", "yhat", "yhat_lower", "yhat_upper")])
+
+tail(forecast)
+
+

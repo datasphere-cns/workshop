@@ -1,0 +1,18 @@
+#Analisis de consumo de gasolina
+gas = scan('http://verso.mat.uam.es/~joser.berrendero/datos/gas6677.dat')
+plot(gas)
+
+gas.ts = ts(gas, start = c(1966,1), frequency = 12)
+
+print(gas.ts)
+
+plot(gas.ts)
+
+boxplot(gas.ts ~ cycle(gas.ts))
+
+#determina la unidad de tiempo a la que pertenece cada observación de la serie
+cycle(gas.ts)
+
+
+gas.ts.desc = decompose(gas.ts)
+plot(gas.ts.desc, xlab='Año')
